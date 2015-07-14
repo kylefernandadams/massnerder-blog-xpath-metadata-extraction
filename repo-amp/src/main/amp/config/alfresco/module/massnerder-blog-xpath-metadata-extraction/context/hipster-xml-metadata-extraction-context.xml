@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+
+<!-- Configurations for XmlMetadataExtracters -->
+<beans>
+   <!-- An extractor that operates on Alfresco models -->
+   <bean id="extracter.xml.HipsterModelMetadataExtracter"
+         class="org.alfresco.repo.content.metadata.xml.XPathMetadataExtracter"
+         parent="baseMetadataExtracter"
+         init-method="init" >
+      <property name="mappingProperties">
+         <bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+            <property name="location">
+               <value>classpath:alfresco/module/massnerder-blog-xpath-metadata-extraction/metadata/extraction/hipster-model-mappings.properties</value>
+            </property>
+         </bean>
+      </property>
+      <property name="xpathMappingProperties">
+         <bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+            <property name="location">
+               <value>classpath:alfresco/module/massnerder-blog-xpath-metadata-extraction/metadata/extraction/hipster-model-xpath-mappings.properties</value>
+            </property>
+         </bean>
+      </property>
+   </bean>
+
+   <!-- A selector that executes XPath statements -->
+   <bean
+         id="extracter.xml.selector.HipsterXPathSelector"
+         class="org.alfresco.repo.content.selector.XPathContentWorkerSelector"
+         init-method="init">
+      <property name="workers">
+         <map>
+            <entry key="/*">
+               <ref bean="extracter.xml.HipsterModelMetadataExtracter" />
+            </entry>
+         </map>
+      </property>
+   </bean>
+
+   <!-- The wrapper XML metadata extracter -->
+   <bean
+         id="extracter.xml.HipsterXMLMetadataExtracter"
+         class="org.alfresco.repo.content.metadata.xml.XmlMetadataExtracter"
+         parent="baseMetadataExtracter">
+      <property name="overwritePolicy">
+         <value>EAGER</value>
+      </property>
+      <property name="selectors">
+         <list>
+            <ref bean="extracter.xml.selector.HipsterXPathSelector" />
+         </list>
+      </property>
+   </bean>
+</beans>

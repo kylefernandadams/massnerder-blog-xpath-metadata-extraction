@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model name="hip:hipsterModel" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+  <description>Hipster Content Model</description>
+  <author>Kyle Adams</author>
+  <version>1.0</version>
+
+  <imports>
+    <import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+    <import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+  </imports>
+
+  <namespaces>
+    <namespace uri="http://www.massnerder.io/model/1.0" prefix="hip" />
+  </namespaces>
+  <constraints>
+    <!-- Indie Genre Constant -->
+    <constraint name="hip:genreConst" type="LIST">
+      <parameter name="allowedValues">
+        <list>
+          <value>Emo</value>
+          <value>Garage Rock</value>
+          <value>Hardcore</value>
+          <value>Indie Americana</value>
+          <value>Indie Doo-Wop</value>
+          <value>Indie Folk</value>
+          <value>Indie Pop</value>
+          <value>Indietronica</value>
+          <value>Lo-fi</value>
+          <value>Nu-hula</value>
+          <value>Pop Punk</value>
+          <value>Post Hardcore</value>
+          <value>Surf Rock</value>
+        </list>
+      </parameter>
+    </constraint>
+  </constraints>
+
+  <!-- Content Types -->
+  <types>
+    <!-- Artist Type -->
+    <type name="hip:artist">
+      <title>Artist</title>
+      <parent>cm:content</parent>
+      <properties>
+        <property name="hip:artistName">
+          <title>Artist Name</title>
+          <type>d:text</type>
+          <index enabled="true">
+            <atomic>true</atomic>
+            <stored>false</stored>
+            <tokenised>false</tokenised>
+          </index>
+        </property>
+        <property name="hip:label">
+          <title>Label</title>
+          <type>d:text</type>
+          <index enabled="true">
+            <atomic>true</atomic>
+            <stored>false</stored>
+            <tokenised>false</tokenised>
+          </index>
+        </property>
+        <property name="hip:origin">
+          <title>Origin</title>
+          <type>d:text</type>
+          <index enabled="true">
+            <atomic>true</atomic>
+            <stored>false</stored>
+            <tokenised>false</tokenised>
+          </index>
+        </property>
+        <property name="hip:genres">
+          <title>Genres</title>
+          <type>d:text</type>
+          <multiple>true</multiple>
+          <index enabled="true">
+            <atomic>true</atomic>
+            <stored>false</stored>
+            <tokenised>false</tokenised>
+          </index>
+          <constraints>
+            <constraint ref="hip:genreConst"/>
+          </constraints>
+        </property>
+        <property name="hip:members">
+          <title>Members</title>
+          <type>d:text</type>
+          <multiple>true</multiple>
+          <index enabled="true">
+            <atomic>true</atomic>
+            <stored>false</stored>
+            <tokenised>false</tokenised>
+          </index>
+        </property>
+        <property name="hip:formed">
+          <title>Date Formed</title>
+          <type>d:date</type>
+        </property>
+        <property name="hip:disbanded">
+          <title>Date Disbanded</title>
+          <type>d:date</type>
+        </property>
+      </properties>
+    </type>
+  </types>
+</model>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<alfresco-config>
+	<config evaluator="string-compare" condition="DocumentLibrary">
+		<!-- ============================================================== -->
+		<!-- Content type overrides -->
+		<types>
+			<type name="cm:folder">
+					<subtype name="hip:artist"/>
+      </type>
+			<type name="cm:content">
+			</type>
+		</types>
+		<!-- ============================================================== -->
+		<!-- Aspects -->
+		<aspects>
+			<visible>
+			</visible>
+		</aspects>
+	</config>
+	<config evaluator="node-type" condition="hip:artist">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="hip:artistName"/>
+					<show id="hip:label"/>
+					<show id="hip:origin"/>
+					<show id="hip:genres"/>
+					<show id="hip:members"/>
+					<show id="hip:formed"/>
+					<show id="hip:disbanded"/>
+				</field-visibility>
+				<appearance>
+					<set id="artist-information-group" appearance="bordered-panel" label="Artist Information"/>
+					<field id="hip:artistName" set="artist-information-group"/>
+					<field id="hip:label" set="artist-information-group"/>
+					<field id="hip:origin" set="artist-information-group"/>
+					<field id="hip:genres" set="artist-information-group"/>
+					<field id="hip:members" set="artist-information-group"/>
+					<field id="hip:formed" set="artist-information-group"/>
+					<field id="hip:disbanded" set="artist-information-group"/>
+				</appearance>
+			</form>
+		</forms>
+	</config>
+</alfresco-config>
